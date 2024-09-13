@@ -1,0 +1,203 @@
+definitions:
+  model.Demo:
+    properties:
+      id:
+        description: just ID
+        type: integer
+      name:
+        description: 名字
+        type: string
+    type: object
+  model.ResultGeneric-array_model_Demo:
+    properties:
+      code:
+        description: 错误码 200:成功 其他:失败
+        type: integer
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/model.Demo'
+        type: array
+      message:
+        description: 错误消息
+        type: string
+      time:
+        description: 耗时 单位:毫秒
+        type: integer
+      traceId:
+        description: 跟踪ID
+        type: string
+    type: object
+  model.ResultGeneric-int:
+    properties:
+      code:
+        description: 错误码 200:成功 其他:失败
+        type: integer
+      data:
+        description: 数据
+        type: integer
+      message:
+        description: 错误消息
+        type: string
+      time:
+        description: 耗时 单位:毫秒
+        type: integer
+      traceId:
+        description: 跟踪ID
+        type: string
+    type: object
+  model.ResultGeneric-model_Demo:
+    properties:
+      code:
+        description: 错误码 200:成功 其他:失败
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Demo'
+        description: 数据
+      message:
+        description: 错误消息
+        type: string
+      time:
+        description: 耗时 单位:毫秒
+        type: integer
+      traceId:
+        description: 跟踪ID
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /demo/:id:
+    get:
+      consumes:
+      - application/json
+      description: 查询demo
+      parameters:
+      - description: 标识
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 请求成功返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-model_Demo'
+        "500":
+          description: 请求失败返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-model_Demo'
+      summary: 查询demo
+      tags:
+      - demo
+  /demo/add:
+    post:
+      consumes:
+      - application/json
+      description: 创建demo
+      parameters:
+      - description: demo数据
+        in: body
+        name: demo
+        required: true
+        schema:
+          $ref: '#/definitions/model.Demo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 请求成功返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-int'
+        "500":
+          description: 请求失败返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-int'
+      summary: 创建demo
+      tags:
+      - demo
+  /demo/getDemo:
+    get:
+      consumes:
+      - application/json
+      description: 查询demo
+      parameters:
+      - description: 标识
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 请求成功返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-model_Demo'
+        "500":
+          description: 请求失败返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-model_Demo'
+      summary: 查询demo
+      tags:
+      - demo
+  /demo/search/:id:
+    get:
+      consumes:
+      - application/json
+      description: 搜索demo
+      parameters:
+      - description: 标识
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 名字
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 请求成功返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-array_model_Demo'
+        "500":
+          description: 请求失败返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-array_model_Demo'
+      summary: 搜索demo
+      tags:
+      - demo
+  /demo/search2:
+    post:
+      consumes:
+      - application/json
+      description: 搜索demo
+      parameters:
+      - description: 搜索条件
+        in: body
+        name: pms
+        required: true
+        schema:
+          $ref: '#/definitions/model.Demo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 请求成功返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-array_model_Demo'
+        "500":
+          description: 请求失败返回的结果
+          schema:
+            $ref: '#/definitions/model.ResultGeneric-array_model_Demo'
+      summary: 搜索demo
+      tags:
+      - demo
+swagger: "2.0"

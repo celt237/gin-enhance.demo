@@ -1,0 +1,14 @@
+# 服务路径
+servicePath: "./internal/service"
+# 控制器路径
+handlePath: "./internal/handler"
+# 接口返回的外层结构体类型
+result: "model.ResultGeneric"
+# 默认错误码
+errorCode: 500
+# 需要额外导入的包，包括外层结构体类型对应的包路径
+#imports:
+#  - "github.com/celt/iris-enhance.demo/model"
+# 自定义属性，必须以x开头
+#customAttributes:
+#  - "xPower"
